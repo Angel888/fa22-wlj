@@ -52,7 +52,7 @@ public class Tile {
      *  (COL, ROW). */
     public Tile merge(int col, int row, Tile otherTile) {
         assert _value == otherTile.value();
-        _next = otherTile._next = new Tile(2 * _value, col, row);
+        _next = otherTile._next = new Tile(2 * _value, col, row); //todo 啥玩意儿？俩等于号？
         return _next;
     }
 

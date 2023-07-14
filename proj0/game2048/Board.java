@@ -50,6 +50,7 @@ public class Board implements Iterable<Tile> {
 
     /** Return the current Tile at (COL, ROW), when sitting with the board
      *  oriented so that SIDE is at the top (farthest) from you. */
+    // vtile是有viewPerspective时的返回；tile是没有viewPerspective时的返回
     private Tile vtile(int col, int row, Side side) {
         return _values[side.col(col, row, size())][side.row(col, row, size())];
     }
@@ -77,19 +78,20 @@ public class Board implements Iterable<Tile> {
      *
      * Returns whether or not this move is a merge.
      * */
+    // 将tile放到位置col row,如果这两个位置的值一样则合并
     public boolean move(int col, int row, Tile tile) {
         int pcol = _viewPerspective.col(col, row, size()),
                 prow = _viewPerspective.row(col, row, size());
         if (tile.col() == pcol && tile.row() == prow) {
             return false;
         }
-        Tile tile1 = vtile(col, row, _viewPerspective);
-        _values[tile.col()][tile.row()] = null;
+        Tile tile1 = vtile(col, row, _viewPerspective); // 返回这个坐标的棋子
+        _values[tile.col()][tile.row()] = null; // 将这个位置置为空
 
         if (tile1 == null) {
             _values[pcol][prow] = tile.move(pcol, prow);
             return false;
-        } else {
+        } else { //tile1不为空，则merge 在merge里面判断数字是否一致
             _values[pcol][prow] = tile.merge(pcol, prow, tile1);
             return true;
         }

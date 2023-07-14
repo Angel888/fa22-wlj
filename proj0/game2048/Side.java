@@ -21,7 +21,7 @@ public enum Side {
      *  standard coordinates, one can arrange to use exactly the same code
      *  to compute the result of tilting the board in any particular
      *  direction. */
-
+//
     NORTH(0, 0, 0, 1), EAST(0, 1, 1, 0), SOUTH(1, 1, 0, -1),
     WEST(1, 0, -1, 0);
 
@@ -53,6 +53,7 @@ public enum Side {
 
     /** Return the standard column number for square (C, R) on a board
      *  of size SIZE oriented with this Side on top. */
+    //根据以东作为标准的坐标 来推实际的坐标
     public int col(int c, int r, int size) {
         return _col0 * (size - 1) + c * _drow + r * _dcol;
     }

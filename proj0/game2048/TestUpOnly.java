@@ -11,6 +11,7 @@ public class TestUpOnly extends TestUtils {
     /** Move tiles up (no merging). */
     @Test
     public void testUpNoMerge() {
+        //
         int[][] before = new int[][] {
                 {0, 0, 4, 0},
                 {0, 0, 0, 2},

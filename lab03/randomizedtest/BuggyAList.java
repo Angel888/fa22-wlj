@@ -1,5 +1,7 @@
 package randomizedtest;
 
+import org.junit.Test;
+
 /** Array based list.
  *  @author Josh Hug
  */
@@ -31,6 +33,7 @@ public class BuggyAList<Item> {
             a[i] = items[i];
         }
         items = a;
+        size = capacity;
     }
 
     /** Inserts X into the back of the list. */
@@ -67,4 +70,5 @@ public class BuggyAList<Item> {
         size = size - 1;
         return x;
     }
+
 }

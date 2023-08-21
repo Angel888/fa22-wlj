@@ -18,30 +18,26 @@ public class ArrayDeque<T> {
         items = (T[]) new Object[8];
         size = 0;
         nextFirst = 0;
-        nextLast = 0; //todo 不应该也是0吗 此时为空数组
+        nextLast = 0;
         capacity = 0;
     }
 
     public void addFirst(T item) {
         resize();
-        // 每个都要往后挪一下吗
         items[this.nextFirst] = item;
-        this.nextFirst = plusOne(this.nextFirst);
+        this.nextFirst = minusOne(this.nextFirst);
         size += 1;
     }
 
     public void addLast(T item) {
         resize();
         items[this.nextLast] = item;
-        this.nextLast = minusOne(this.nextFirst);
+        this.nextLast = plusOne(this.nextLast);
         size += 1;
     }
 
     public boolean isEmpty() {
-        if (this.size() == 0) {
-            return true;
-        }
-        return false;
+        return this.size == 0;
     }
 
     public int size() {
@@ -63,9 +59,9 @@ public class ArrayDeque<T> {
             return null;
         }
         resize();
-        T item = items[minusOne(this.nextFirst)];
-        items[minusOne(this.nextFirst)] = null;
-        this.nextFirst = minusOne(this.nextFirst);
+        this.nextFirst = plusOne(this.nextFirst);
+        T item = items[this.nextFirst];
+        items[this.nextFirst] = null;
         size--;
         return item;
     }
@@ -75,19 +71,20 @@ public class ArrayDeque<T> {
             return null;
         }
         resize();
-        T item = items[minusOne(this.nextLast)];
-        items[minusOne(this.nextLast)] = null;
         this.nextLast = minusOne(this.nextLast);
+        T item = items[this.nextLast];
+        items[this.nextLast] = null;
         size--;
         return item;
 
     }
 
     public T get(int index) {
+        resize();
         if (index < 0 || this.size() <= index) {
             return null;
         }
-//        index = Math.floorMod(plusOne(nextFirst) + index, items.length); //todo 這句什麼意思？
+        index = Math.floorMod(plusOne(nextFirst) + index, items.length);
         return items[index];
     }
 
@@ -121,7 +118,13 @@ public class ArrayDeque<T> {
     }
 
     private void resize() {
-        if (size == items.length) {
+        if (items[this.nextFirst] != null) {
+            this.nextFirst = minusOne(this.nextFirst);
+        }
+        if (items[this.nextLast] != null) {
+            this.nextLast = plusOne(this.nextLast);
+        }
+        if (size == items.length - 1) {
             expand();
         }
         if (size < (items.length) * 0.25 && items.length > 8) {
@@ -155,5 +158,8 @@ public class ArrayDeque<T> {
         }
         this.capacity = capacity;
         this.items = tempArr;
+        if (begin == 0) {
+            this.nextFirst = capacity - 1;
+        }
     }
 }

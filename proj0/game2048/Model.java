@@ -152,7 +152,8 @@ public class Model extends Observable {
      */
     public void tilt(Side side) {
         //TODO: Fill in this function.
-
+        // todo 用一个二维数组存嘛
+// 先判断这个tile是不是移动过；没有移动过的话判断和下一个一样不一样，如果一样，就合并；不一样就不管
         // 移动时使用Move方法
         _board.setViewingPerspective(side);
         for (int row = 0; row < size()-1; row += 1) {

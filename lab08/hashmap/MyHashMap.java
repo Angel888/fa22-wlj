@@ -2,6 +2,7 @@ package hashmap;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Set;
 
 /**
@@ -11,6 +12,7 @@ import java.util.Set;
  *  Assumes null keys will never be inserted, and does not resize down upon remove().
  *  @author YOUR NAME HERE
  */
+//todo 我该怎么使用Collections和LinkedLIst
 public class MyHashMap<K, V> implements Map61B<K, V> {
 
     @Override
@@ -40,22 +42,22 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     @Override
     public Set<K> keySet() {
-        return null;
+        throw  new UnsupportedOperationException();
     }
 
     @Override
     public V remove(K key) {
-        return null;
+        throw  new UnsupportedOperationException();
     }
 
     @Override
     public V remove(K key, V value) {
-        return null;
+        throw  new UnsupportedOperationException();
     }
 
     @Override
     public Iterator<K> iterator() {
-        return null;
+        throw  new UnsupportedOperationException();
     }
 
     /**
@@ -73,8 +75,8 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     }
 
     /* Instance Variables */
-    private Collection<Node>[] buckets;
-    // You should probably define some more!
+    private LinkedList<Node>[] buckets;   // an array (or table) of Collection<Node> makes a bucket.
+    // todo  You should probably define some more!
 
     /** Constructors */
     public MyHashMap() { }

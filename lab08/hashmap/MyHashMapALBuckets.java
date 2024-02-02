@@ -15,8 +15,7 @@ public class MyHashMapALBuckets<K, V> extends MyHashMap<K, V> {
      */
     public MyHashMapALBuckets() {
         super();
-        int initialSize=16;
-        float loadFactor= 0.75F;
+
     }
 
     /**

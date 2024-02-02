@@ -41,6 +41,20 @@ public class MyHashMapALBuckets<K, V> extends MyHashMap<K, V> {
 
     @Override
     protected Collection<Node> createBucket() {
-        return new ArrayList<>();
+        return new ArrayList<>(initialSize);
     }
+    @Override
+    public V iterator(K key) {
+        int  bucketIndex= (int) ((int)key%maxLoad);
+        while (this[(K)bucketIndex][key].hasNext()){ //todo
+
+        }
+    };
+    @Override
+    public V get(K key) {
+//        Int bucketIndex= (int)key%maxLoad;
+        int  bucketIndex= (int) ((int)key%maxLoad);
+        iterator
+    }
+
 }

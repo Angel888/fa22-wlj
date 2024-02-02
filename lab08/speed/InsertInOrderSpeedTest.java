@@ -59,7 +59,7 @@ public class InsertInOrderSpeedTest {
         String s = "cat";
         for (int i = 0; i < N; i++) {
             s = StringUtils.nextString(s);
-            map61B.put(s, new Integer(i));
+            map61B.put(s, new Integer(i)); //todo 这里为什么是红的？
         }
         return sw.elapsedTime();
     }

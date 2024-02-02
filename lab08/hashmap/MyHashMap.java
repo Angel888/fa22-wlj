@@ -2,7 +2,6 @@ package hashmap;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.Set;
 
 /**
@@ -12,8 +11,9 @@ import java.util.Set;
  *  Assumes null keys will never be inserted, and does not resize down upon remove().
  *  @author YOUR NAME HERE
  */
-//todo 我该怎么使用Collections和LinkedLIst
 public class MyHashMap<K, V> implements Map61B<K, V> {
+    protected int initialSize;
+    protected float maxLoad;
 
     @Override
     public void clear() {
@@ -22,6 +22,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     @Override
     public boolean containsKey(K key) {
+
         return false;
     }
 
@@ -42,22 +43,22 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     @Override
     public Set<K> keySet() {
-        throw  new UnsupportedOperationException();
+        return null;
     }
 
     @Override
     public V remove(K key) {
-        throw  new UnsupportedOperationException();
+        return null;
     }
 
     @Override
     public V remove(K key, V value) {
-        throw  new UnsupportedOperationException();
+        return null;
     }
 
     @Override
     public Iterator<K> iterator() {
-        throw  new UnsupportedOperationException();
+        return null;
     }
 
     /**
@@ -75,13 +76,18 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     }
 
     /* Instance Variables */
-    private LinkedList<Node>[] buckets;   // an array (or table) of Collection<Node> makes a bucket.
-    // todo  You should probably define some more!
+    private Collection<Node>[] buckets; // Node 的结构不一样，对应不同的bucket子类
+    // You should probably define some more!
 
     /** Constructors */
-    public MyHashMap() { }
+    public MyHashMap() {
+        int initialSize=16;
+        float loadFactor= 0.75F;
+    }
 
-    public MyHashMap(int initialSize) { }
+    public MyHashMap(int initialSize) {
+        float loadFactor= 0.75F;
+    }
 
     /**
      * MyHashMap constructor that creates a backing array of initialSize.
@@ -90,7 +96,12 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      * @param initialSize initial size of backing array
      * @param maxLoad maximum load factor
      */
-    public MyHashMap(int initialSize, double maxLoad) { }
+    public MyHashMap(int initialSize, double maxLoad) {
+        if (initialSize<1  || maxLoad<=0.0){
+            throw new IllegalArgumentException ();
+        }
+        ;
+    }
 
     /**
      * Returns a new node to be placed in a hash table bucket

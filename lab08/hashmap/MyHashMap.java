@@ -12,6 +12,9 @@ import java.util.Set;
  *  @author YOUR NAME HERE
  */
 public class MyHashMap<K, V> implements Map61B<K, V> {
+    protected int initialSize;  //todo 这里不能用private吧
+    protected float maxLoad;
+    protected float loadFactor;
 
     @Override
     public void clear() {
@@ -19,8 +22,8 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     }
 
     @Override
-    public boolean containsKey(K key) {
-        return false;
+    public boolean containsKey(K key) {;;
+        return get(key) != null;
     }
 
     @Override
@@ -35,6 +38,10 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     @Override
     public void put(K key, V value) {
+        if (containsKey(key)){
+            return;
+        }
+        //todo 根据哈希值去找位置，然后放
 
     }
 
@@ -73,13 +80,19 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     }
 
     /* Instance Variables */
-    private Collection<Node>[] buckets;
+    private Collection<Node>[] buckets; // Node 的结构不一样，对应不同的bucket子类
     // You should probably define some more!
 
     /** Constructors */
-    public MyHashMap() { }
+    public MyHashMap() {
+        int initialSize=16;
+        float loadFactor= 0.75F;
+    }
 
-    public MyHashMap(int initialSize) { }
+    public MyHashMap(int initialSize) {
+        initialSize=initialSize;
+        float loadFactor= 0.75F;
+    }
 
     /**
      * MyHashMap constructor that creates a backing array of initialSize.
@@ -88,7 +101,13 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      * @param initialSize initial size of backing array
      * @param maxLoad maximum load factor
      */
-    public MyHashMap(int initialSize, double maxLoad) { }
+    public MyHashMap(int initialSize, double maxLoad) {
+        if (initialSize<1  || maxLoad<=0.0){
+            throw new IllegalArgumentException ();
+        }
+        initialSize=initialSize;
+        maxLoad=maxLoad;
+    }
 
     /**
      * Returns a new node to be placed in a hash table bucket

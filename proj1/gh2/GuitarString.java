@@ -19,6 +19,9 @@ public class GuitarString {
         //       cast the result of this division operation into an int. For
         //       better accuracy, use the Math.round() function before casting.
         //       Your should initially fill your buffer array with zeros.
+        Integer buffer=0;
+        buffer=(int)Math.round(SR/ frequency);
+        // todo 初始值为什么要是0？
     }
 
 
@@ -32,6 +35,7 @@ public class GuitarString {
         //       other. This does not mean that you need to check that the numbers
         //       are different from each other. It means you should repeatedly call
         //       Math.random() - 0.5 to generate new random numbers for each array index.
+        double r = Math.random() - 0.5;
     }
 
     /* Advance the simulation one time step by performing one iteration of
@@ -41,12 +45,14 @@ public class GuitarString {
         // TODO: Dequeue the front sample and enqueue a new sample that is
         //       the average of the two multiplied by the DECAY factor.
         //       **Do not call StdAudio.play().**
+
+        //todo sample是什么？
     }
 
     /* Return the double at the front of the buffer. */
     public double sample() {
         // TODO: Return the correct thing.
-        return 0;
+        return 0.0;
     }
 }
     // TODO: Remove all comments that say TODO when you're done.

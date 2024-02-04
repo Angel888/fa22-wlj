@@ -14,6 +14,8 @@ import java.util.Collection;
 public class NGramMap {
     /** Constructs an NGramMap from WORDSFILENAME and COUNTSFILENAME. */
     public NGramMap(String wordsFilename, String countsFilename) {
+        // very_short.csv第3行是times 第4行是sources
+        //total_counts.csv 年份，次数，出现的页数，来源的个数
     }
 
     /** Provides the history of WORD. The returned TimeSeries should be a copy,
@@ -21,6 +23,9 @@ public class NGramMap {
      *  to the object returned by this function should not also affect the
      *  NGramMap. This is also known as a "defensive copy". */
     public TimeSeries countHistory(String word) {
+
+        //todo
+
         return null;
     }
 

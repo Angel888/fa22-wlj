@@ -37,6 +37,7 @@ public class TestTimeSeries {
                 (Arrays.asList(0.0, 100.0, 600.0, 500.0));
 
         for (int i = 0; i < expectedTotal.size(); i += 1) {
+//            System.out.println(expectedTotal.get(i)); // 返回 0，,100，,600，,500
             assertEquals(expectedTotal.get(i), totalPopulation.data().get(i), 1E-10);
         }
     }

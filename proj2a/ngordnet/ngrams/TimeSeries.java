@@ -6,7 +6,9 @@ import java.util.*;
  *  utility methods useful for data analysis.
  *  @author Josh Hug
  */
+// todo need to write ,not to add addtional public methods
 public class TimeSeries extends TreeMap<Integer, Double> {
+//    no instance variables
     /** Constructs a new empty TimeSeries. */
     public TimeSeries() {
         super();

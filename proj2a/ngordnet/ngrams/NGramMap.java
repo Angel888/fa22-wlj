@@ -8,9 +8,10 @@ import java.util.Collection;
  *  An NGramMap stores pertinent data from a "words file" and a "counts
  *  file". It is not a map in the strict sense, but it does provide additional
  *  functionality.
- *
+ *   interacting with Google’s NGrams dataset
  *  @author Josh Hug
  */
+//should not extend any class.Most of the work will be in the constructor, and your methods should be short,
 public class NGramMap {
     /** Constructs an NGramMap from WORDSFILENAME and COUNTSFILENAME. */
     public NGramMap(String wordsFilename, String countsFilename) {

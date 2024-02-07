@@ -10,6 +10,8 @@ import java.util.List;
 /** Unit Tests for the NGramMap class.
  *  @author Josh Hug
  */
+// todo 没懂这里的 in 怎么弄？
+// If you use In, don’t use readAllLines or readAllStrings. These methods are slow. Instead, read inputs one chunk at a time. See FileReaderDemo.java for an example
 public class TestNGramMap {
     @Test
     public void testCountHistory() {
@@ -42,6 +44,8 @@ public class TestNGramMap {
 
     @Test
     public void testOnLargeFile() {
+        //todo
+
         // creates an NGramMap from a large dataset
         NGramMap ngm = new NGramMap("./data/ngrams/top_14377_words.csv",
                 "./data/ngrams/total_counts.csv");

@@ -1,6 +1,14 @@
 package ngordnet.ngrams;
 
+import ngordnet.hugbrowsermagic.LineIterator;
+
+import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.Scanner;
 
 /** An object that provides utility methods for making queries on the
  *  Google NGrams dataset (or a subset thereof).
@@ -11,12 +19,37 @@ import java.util.Collection;
  *
  *  @author Josh Hug
  */
-public class NGramMap {
+// 使用自定义类型 而非嵌套的 HashMap or TreeMap来表达复杂的数据结构
+public class NGramMap{
     /** Constructs an NGramMap from WORDSFILENAME and COUNTSFILENAME. */
+    public  String word;
+    public ArrayList<Factor> factors;
+    public class Factor{
+        int year;
+        int times;
+        int sources;
+
+    }
     public NGramMap(String wordsFilename, String countsFilename) {
         // very_short.csv第3行是times 第4行是sources
         //total_counts.csv 年份，次数，出现的页数，来源的个数
+        try {
+            BufferedReader fileReader =new BufferedReader(new FileReader(wordsFilename));
+            String line;
+            while ((line = fileReader.readLine()) != null) {
+                line.split();
+
+                }
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
+
+
 
     /** Provides the history of WORD. The returned TimeSeries should be a copy,
      *  not a link to this NGramMap's TimeSeries. In other words, changes made

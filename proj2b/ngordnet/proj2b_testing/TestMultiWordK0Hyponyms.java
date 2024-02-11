@@ -2,6 +2,7 @@ package ngordnet.proj2b_testing;
 
 import ngordnet.hugbrowsermagic.NgordnetQuery;
 import ngordnet.hugbrowsermagic.NgordnetQueryHandler;
+import ngordnet.main.HyponymsHandler;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -81,6 +82,10 @@ public class TestMultiWordK0Hyponyms {
 
         NgordnetQuery nq = new NgordnetQuery(words, 0, 0, 0);
         String actual = studentHandler.handle(nq);
+        HyponymsHandler hypH=(HyponymsHandler)studentHandler;
+        System.out.println("energy:"+ hypH.Wdn.getNodes("energy"));
+        System.out.println("energy:"+ hypH.Wdn.getNodes("energy"));
+        System.out.println("energy:"+ hypH.Wdn.getNodes("energy"));
         String expected = "[light, scintillation, spark, sparkle, twinkle]";
         assertEquals(expected, actual);
     }

@@ -9,4 +9,5 @@ public record NgordnetQuery(List<String> words,
         int startYear,
         int endYear,
         int k) {
+
 }

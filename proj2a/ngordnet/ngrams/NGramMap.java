@@ -3,6 +3,8 @@ package ngordnet.ngrams;
 import edu.princeton.cs.algs4.In;
 
 import java.util.*;
+
+import static java.lang.Integer.parseInt;
 //todo 帮我改改 不知道哪里有问题 我觉得你比chatgpt写得好
 /**
  * An object that provides utility methods for making queries on the
@@ -15,19 +17,11 @@ import java.util.*;
  * @author Josh Hug
  */
 // 使用自定义类型 而非嵌套的 HashMap or TreeMap来表达复杂的数据结构
-
-public class NGramMap<String, ArrayList<Factor>>{
-/**
- * Constructs an NGramMap from WORDSFILENAME and COUNTSFILENAME.
- */
-
-public static String word;
-public static ArrayList<Factor> factors;
-
-public static class Factor {
+class Factor {
     int year;
     int times;
     int sources;
+
 
     public Factor(int year, int times, int numSources) {
         this.year = year;
@@ -37,19 +31,34 @@ public static class Factor {
 
 
 }
+public class NGramMap{
+//public class NGramMap<String, ArrayList<Factor>>{
+/**
+ * Constructs an NGramMap from WORDSFILENAME and COUNTSFILENAME.
+ */
+
+public  String word;
+public  ArrayList<Factor> factors;
+
+public HashMap<String,ArrayList<Factor>> mmap;  //todo 这个类本身是一个map 怎么去定义
+
 
 
 public NGramMap(String wordsFilename, String countsFilename) {
-    // very_short.csv第3行是times 第4行是sources
+    // very_short.csv 第2行是year,第3行是times 第4行是sources
     //total_counts.csv 年份，次数，出现的页数，来源的个数
+    this.mmap=new HashMap<>();
     In in1 = new In(wordsFilename);
-
     String lineStr = in1.readLine();
     while (lineStr != null) {
         String[] aa = lineStr.split("\t"); // 这里的String[] 是一个array
+        lineStr = in1.readLine();
+        String wordName=aa[0];
+        Factor ff=new Factor(parseInt(aa[1]),parseInt(aa[2]),parseInt(aa[3]));
+        this.mmap[wordName]=ff; //todo
 
     }
-
+    In in2 = new In(countsFilename);
 
 }
 

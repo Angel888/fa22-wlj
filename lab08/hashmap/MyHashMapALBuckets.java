@@ -46,7 +46,7 @@ public class MyHashMapALBuckets<K, V> extends MyHashMap<K, V> {
     @Override
     public V iterator(K key) {
         int  bucketIndex= (int) ((int)key%maxLoad);
-        while (this[(K)bucketIndex][key].hasNext()){ //todo
+        while (this[(K) bucketIndex][key].hasNext()) { //todo
 
         }
     };

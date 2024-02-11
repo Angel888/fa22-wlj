@@ -9,6 +9,7 @@ class Node {
     // 树的节点和孩子
     String[] val;
     ArrayList<Node> children;
+    Integer NodeIndex ;
 
 }
 
@@ -18,7 +19,7 @@ public class WordNet {
     public HashMap<String, HashSet<Integer>> NodeInd;  // 每个单词所在的节点,key是单词，val表示在synsets的index(第 i 个节点）
 
 
-//    public  WordNet  hyponyms11;
+    //    public  WordNet  hyponyms11;
     public WordNet(String synsets, String hyponyms) {
         // todo hyponyms不能使用LinkedList吧??因为可能有多个子节点，那么使用树还是图呢？
         //  synsets使用map,key是index ，val是节点
@@ -29,11 +30,12 @@ public class WordNet {
         // 通过遍历synsets，获取所有节点的val,并且填充val和index关系的map
         while (lineStr1 != null) {
             String[] aa = lineStr1.split(","); // 这里的String[] 是一个array
-            Integer index =Integer.valueOf(aa[0]);
-            String wordStrings =aa[1];
+            Integer index = Integer.valueOf(aa[0]);
+            String wordStrings = aa[1];
             Node nn = new Node();
             nn.children = new ArrayList<>();
             nn.val = wordStrings.split(" ");
+            nn.NodeIndex = index;
             this.synsetsArray.add(nn);
             for (int i = 0; i < nn.val.length; i++) {
                 if (this.NodeInd.containsKey(nn.val[i])) {
@@ -51,21 +53,21 @@ public class WordNet {
         // 通过遍历hyponyms，获取所有节点的子节点
         while (lineStr2 != null) {
             String[] lineArray = lineStr2.split(",");
-
+            Integer parentIndex= Integer.parseInt(lineArray[0]);
             for (int i = 1; i < lineArray.length; i++) {
-                this.synsetsArray.get(Integer.parseInt(lineArray[i - 1])).children.add(synsetsArray.get(Integer.parseInt(lineArray[i])));
+                this.synsetsArray.get(parentIndex).children.add(synsetsArray.get(Integer.parseInt(lineArray[i])));
             }
             lineStr2 = in2.readLine();
         }
     }
 
     public HashSet<Integer> getNodes(String word) {
-
         return this.NodeInd.get(word);
     }
 
-    public HashSet<String> findHyponyms(String word) {
-        HashSet<String> hyponymsArray = new HashSet<>();
+    public HashSet<Node> findHyponyms(String word) {
+        // 给出一个word 找到这个word在的所有节点和其对应的子节点
+        HashSet<Node> hyponymsArray = new HashSet<>();
         HashSet<Integer> nodeIndx = this.NodeInd.get(word);
         if (nodeIndx != null) {
             for (int idx : nodeIndx) {
@@ -76,19 +78,47 @@ public class WordNet {
         return hyponymsArray;
     }
 
-    public HashSet<String> getNodeHyponyms(Node node) {
-        HashSet<String> childrenWords = new HashSet<>(Arrays.asList(node.val));
+    public HashSet<Node> getNodeHyponyms(Node node) {
+        // 层次遍历 给出一个Node 返回这个Node在的所有节点和其对应的子节点
+        HashSet<Node> childrenNodes = new HashSet<>();
         ArrayDeque<Node> temporaryChildren = new ArrayDeque<>();
-        temporaryChildren.addAll(node.children);
-        while (temporaryChildren != null) {
-            for (Node nn : temporaryChildren) {
-                childrenWords.addAll(List.of(nn.val));
-                temporaryChildren.addAll(nn.children);
-                temporaryChildren.removeFirst();
-            }
+        temporaryChildren.add(node);
+        while (temporaryChildren.size() > 0) { // todo 层次遍历除了用两个arrayList 还有没有别的简单办法？
+            temporaryChildren.addAll(temporaryChildren.getFirst().children);
+            childrenNodes.add(temporaryChildren.removeFirst());
         }
-        return childrenWords;
-
+        return childrenNodes;
     }
 
+    public HashSet<Node> IntersectionNodes(String word1, String word2) {
+        HashSet<Node> word1Nodes = this.findHyponyms(word1);
+        HashSet<Node> word2Nodes = this.findHyponyms(word2);
+        ArrayList<Integer> a1=this.getNodesIndex(word1Nodes);
+        a1.sort(Comparator.naturalOrder());
+        ArrayList<Integer> a2=this.getNodesIndex(word2Nodes);
+        a2.sort(Comparator.naturalOrder());
+        System.out.println("a1,a2:"+a1+a2);
+        word1Nodes.retainAll(word2Nodes);
+        ArrayList<Integer> a3=this.getNodesIndex(word1Nodes);
+        a3.sort(Comparator.naturalOrder());
+        System.out.println("a3:"+a3);
+        return word1Nodes;
+    }
+
+    public HashSet<String> NodeToWords(HashSet<Node> nodes) {
+        HashSet<String> resW = new HashSet<>();
+        for (Node nn : nodes) {
+            resW.addAll(List.of(nn.val));
+        }
+        return resW;
+    }
+    public ArrayList<Integer> getNodesIndex(HashSet<Node> nodes){
+        ArrayList<Integer> resW = new ArrayList<>();
+        for (Node nn : nodes) {
+            resW.add(nn.NodeIndex);
+        }
+        return resW;
+
+    }
 }
+

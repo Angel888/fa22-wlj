@@ -4,6 +4,7 @@ import ngordnet.hugbrowsermagic.NgordnetQuery;
 import ngordnet.hugbrowsermagic.NgordnetQueryHandler;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import ngordnet.ngrams.NGramMap;
@@ -22,12 +23,12 @@ public class HyponymsHandler extends NgordnetQueryHandler {
     @Override
     public String handle(NgordnetQuery q) {
         ArrayList<String> resArrayList = new ArrayList<>();
-        List<String> qWords = q.words();
+        List<String> qWords = q.words(); // 先默认是两个words
         if (qWords != null) {
-            for (String word : qWords) {
-                resArrayList.addAll(this.Wdn.findHyponyms(word));
-            }
+                resArrayList.addAll(this.Wdn.NodeToWords(this.Wdn.IntersectionNodes(qWords.get(0), qWords.get(1))));
         }
+        resArrayList.sort(Comparator.naturalOrder());
+        System.out.println(resArrayList);
         return resArrayList.toString();
     }
 }

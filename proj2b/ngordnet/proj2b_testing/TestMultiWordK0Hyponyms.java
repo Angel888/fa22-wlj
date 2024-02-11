@@ -6,6 +6,7 @@ import ngordnet.main.HyponymsHandler;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Comparator;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;

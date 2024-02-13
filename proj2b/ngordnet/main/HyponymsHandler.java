@@ -25,7 +25,8 @@ public class HyponymsHandler extends NgordnetQueryHandler {
         ArrayList<String> resArrayList = new ArrayList<>();
         List<String> qWords = q.words(); // 先默认是两个words
         if (qWords != null) {
-                resArrayList.addAll(this.Wdn.NodeToWords(this.Wdn.IntersectionNodes(qWords.get(0), qWords.get(1))));
+//                resArrayList.addAll(this.Wdn.NodeToWords(this.Wdn.IntersectionNodes(qWords.get(0), qWords.get(1))));
+                resArrayList.addAll(this.Wdn.IntersectionWords(qWords.get(0), qWords.get(1)));
         }
         resArrayList.sort(Comparator.naturalOrder());
         System.out.println(resArrayList);

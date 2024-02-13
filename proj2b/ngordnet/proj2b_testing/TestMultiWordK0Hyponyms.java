@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -40,7 +41,6 @@ public class TestMultiWordK0Hyponyms {
         NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
                 WORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
         List<String> words = List.of("bowl", "gallery");
-
         NgordnetQuery nq = new NgordnetQuery(words, 0, 0, 0);
         String actual = studentHandler.handle(nq);
         String expected = "[amphitheater, amphitheatre]";
@@ -56,7 +56,7 @@ public class TestMultiWordK0Hyponyms {
 
         NgordnetQuery nq = new NgordnetQuery(words, 0, 0, 0);
         String actual = studentHandler.handle(nq);
-        String expected = "You have to fill in this text yourself. Hint: COPY FROM THE SPEC!";
+        String expected = "[amazon, bird, cat, chick, dam, demoiselle, female, female_mammal, filly, hag, hen, nanny, nymph, siren]";
         assertEquals(expected, actual);
     }
 
@@ -67,20 +67,26 @@ public class TestMultiWordK0Hyponyms {
 
         NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
                 WORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
-        List<String> words = null; // <-- replace with the appropriate list of words!
+        List<String> words = List.of("female", "leader"); // <-- replace with the appropriate list of words!
 
         NgordnetQuery nq = new NgordnetQuery(words, 0, 0, 0);
         String actual = studentHandler.handle(nq);
-        String expected = "You have to fill in this text yourself. Hint: COPY FROM THE SPEC!";
+        String expected = "[crown_princess, marchioness, materfamilias, matriarch, mayoress, mistress, vicereine, viscountess]";
         assertEquals(expected, actual);
     }
 
     @Test
     public void testEnergyLightSparkleK0() {
+        //todo 没懂要怎么改
         NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
                 WORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+        List<String> words1 = List.of("energy", "light"); // <-- replace with the appropriate list of words!
+        List<String> words2 = List.of("sparkle", "light"); // <-- replace with the appropriate list of words!
         List<String> words = List.of("energy", "light", "sparkle"); // <-- replace with the appropriate list of words!
-
+        HashSet<String> words1Set=new HashSet<>(words1);
+        HashSet<String> words2Set=new HashSet<>(words2);
+        words2Set.retainAll(words1Set);
+        System.out.println("words2Set:"+words2Set);
         NgordnetQuery nq = new NgordnetQuery(words, 0, 0, 0);
         String actual = studentHandler.handle(nq);
         HyponymsHandler hypH=(HyponymsHandler)studentHandler;

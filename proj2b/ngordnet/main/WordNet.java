@@ -11,6 +11,10 @@ class Node {
     ArrayList<Node> children;
     Integer NodeIndex ;
 
+    @Override
+    public String toString() {
+        return "val: " + Arrays.toString(val) + ", children: " + children.toString() + ", NodeIndex: " + NodeIndex.toString();
+    }
 }
 
 public class WordNet {
@@ -50,7 +54,7 @@ public class WordNet {
         }
         In in2 = new In(hyponyms);
         String lineStr2 = in2.readLine();
-        // 通过遍历hyponyms，获取所有节点的子节点
+        // 通过遍历 hyponyms，获取所有节点的子节点
         while (lineStr2 != null) {
             String[] lineArray = lineStr2.split(",");
             Integer parentIndex= Integer.parseInt(lineArray[0]);
@@ -75,6 +79,7 @@ public class WordNet {
                 hyponymsArray.addAll(this.getNodeHyponyms(this.synsetsArray.get(idx)));
             }
         }
+        System.out.println("hyponymsArray:"+hyponymsArray+"\n");
         return hyponymsArray;
     }
 
@@ -104,12 +109,21 @@ public class WordNet {
         System.out.println("a3:"+a3);
         return word1Nodes;
     }
+    public HashSet<String> IntersectionWords(String word1, String word2) {
+        HashSet<Node> word1Nodes = this.findHyponyms(word1);
+        HashSet<Node> word2Nodes = this.findHyponyms(word2);
+        HashSet<String> a1=this.NodeToWords(word1Nodes);
+        HashSet<String> a2=this.NodeToWords(word2Nodes);
+        a1.retainAll(a2);
+        return a1;
+    }
 
     public HashSet<String> NodeToWords(HashSet<Node> nodes) {
         HashSet<String> resW = new HashSet<>();
         for (Node nn : nodes) {
             resW.addAll(List.of(nn.val));
         }
+        System.out.println("resW:"+resW);
         return resW;
     }
     public ArrayList<Integer> getNodesIndex(HashSet<Node> nodes){

@@ -12,7 +12,7 @@ import java.util.Set;
  *  @author YOUR NAME HERE
  */
 public class MyHashMap<K, V> implements Map61B<K, V> {
-    protected int initialSize;  //todo 这里不能用private吧
+    protected int KVsize;  //todo 这里不能用private吧
     protected float maxLoad;
     protected float loadFactor;
 
@@ -42,18 +42,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     @Override
     public void put(K key, V value) {
-        if (containsKey(key)){
-            return;
-        }
-        int h = hash (key);
-        Entry<Key,Val> e = find (key, bins.get (h));
-        if (e == null) {
-            bins.set (h, new Entry<Key,Val> (key, value, bins.get (h)));
-            size += 1;
-            if (size > bins.size () * loadFactor) grow ();
-            return null;
-        } else
-            return e.setValue (value);
+        return ;
         //todo 根据哈希值去找位置，然后放
 
     }
@@ -98,27 +87,27 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     /** Constructors */
     public MyHashMap() {
-        int initialSize=16;
+        int KVsize=16;
         float loadFactor= 0.75F;
     }
 
-    public MyHashMap(int initialSize) {
-        initialSize=initialSize;
+    public MyHashMap(int KVsize) {
+        KVsize=KVsize;
         float loadFactor= 0.75F;
     }
 
     /**
-     * MyHashMap constructor that creates a backing array of initialSize.
+     * MyHashMap constructor that creates a backing array of KVsize.
      * The load factor (# items / # buckets) should always be <= loadFactor
      *
-     * @param initialSize initial size of backing array
+     * @param KVsize initial size of backing array
      * @param maxLoad maximum load factor
      */
-    public MyHashMap(int initialSize, double maxLoad) {
-        if (initialSize<1  || maxLoad<=0.0){
+    public MyHashMap(int KVsize, double maxLoad) {
+        if (KVsize<1  || maxLoad<=0.0){
             throw new IllegalArgumentException ();
         }
-        initialSize=initialSize;
+        KVsize=KVsize;
         maxLoad=maxLoad;
     }
 

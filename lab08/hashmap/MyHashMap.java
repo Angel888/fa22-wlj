@@ -28,7 +28,11 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     @Override
     public V get(K key) {
-        return null;
+        // todo 如果子类都继承了父类的get方法 父类的get方法是不是可以不写？
+//        V e = this.buckets.get(key);
+//        return (e == null) ? null : e.value;
+        return  null;
+
     }
 
     @Override
@@ -41,6 +45,15 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         if (containsKey(key)){
             return;
         }
+        int h = hash (key);
+        Entry<Key,Val> e = find (key, bins.get (h));
+        if (e == null) {
+            bins.set (h, new Entry<Key,Val> (key, value, bins.get (h)));
+            size += 1;
+            if (size > bins.size () * loadFactor) grow ();
+            return null;
+        } else
+            return e.setValue (value);
         //todo 根据哈希值去找位置，然后放
 
     }
@@ -148,6 +161,8 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      * @param tableSize the size of the table to create
      */
     private Collection<Node>[] createTable(int tableSize) {
+        // todo
+        Collection<Node> bucket=createBucket();
         return null;
     }
 

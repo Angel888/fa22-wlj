@@ -34,11 +34,12 @@ public class PlusWorld {
         int hengStartY=startY+ shu /2-1;
         int hengStartX=startX-1 - (int) heng /2;
         System.out.printf("hengStartX:%d,hengStartY:%d\n",hengStartX,hengStartY);
+        if(hengStartX>0 && hengStartY>0 ){
         for (int x = hengStartX; x < heng + startX; x += 1) {
             for (int y = hengStartY; y < hengStartY+2; y += 1) {
                 world[x][y] = Tileset.PLUS;
             }
-        }
+        }}
 
     }
 
@@ -59,5 +60,11 @@ public class PlusWorld {
         addPlus(2, 6, 8, world, 10, 10);
         ter.renderFrame(world);
         // todo 想要重复的话我理解写个双层的循环就可以了呀 可以看看proj3
+        for (int x = 0; x < WIDTH; x += 6) {
+            for (int y = 0; y < HEIGHT; y += 6) {
+                 addPlus(2, 6, 8, world, x, y);;
+            }
+        }
+        ter.renderFrame(world);
     }
 }

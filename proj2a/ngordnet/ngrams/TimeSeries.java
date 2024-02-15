@@ -9,6 +9,11 @@ import java.util.*;
  * @author Josh Hug
  */
 public class TimeSeries extends TreeMap<Integer, Double> {
+    public List<Integer> years;
+    public String word;
+    public List<Double> times;
+    public ArrayList<Factor>  factors=new ArrayList<>();  //todo 这样初始化会有问题吗？好像没有见过别人这么搞？
+    public HashMap<Integer, YearCount> yearTotalCount=new HashMap<Integer, YearCount>();
     /**
      * Constructs a new empty TimeSeries.
      */
@@ -28,7 +33,7 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      * Returns all years for this TimeSeries (in any order).
      */
     public List<Integer> years() {
-        return (new ArrayList<>(super.keySet()));
+        return this.years;
     }
 
     /**
@@ -36,7 +41,7 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      * Must be in the same order as years().
      */
     public List<Double> data() {
-        return new ArrayList<>(this.values());
+        return this.times;
     }
 
     /**
@@ -67,5 +72,10 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      */
     public TimeSeries dividedBy(TimeSeries ts) {
         return null;
+    }
+
+    public Double get(int year) {
+        System.out.println("1865:"+this.yearTotalCount.get(1865));
+        return (double) this.yearTotalCount.get(year).times;
     }
 }

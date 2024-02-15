@@ -19,7 +19,7 @@ public class TestNGramMap {
         List<Integer> expectedYears = new ArrayList<>
                 (Arrays.asList(2005, 2006, 2007, 2008));
         List<Double> expectedCounts = new ArrayList<>
-                (Arrays.asList(646179.0, 677820.0, 697645.0, 795265.0));
+                (Arrays.asList(646179.0, 677820.0, 697645.0, 795265.0)); //todo 646179.0是个什么数字？
 
         TimeSeries request2005to2008 = ngm.countHistory("request");
         assertEquals(expectedYears, request2005to2008.years());
@@ -31,7 +31,7 @@ public class TestNGramMap {
         expectedYears = new ArrayList<>
                 (Arrays.asList(2006, 2007));
         expectedCounts = new ArrayList<>
-                (Arrays.asList(677820.0, 697645.0));
+                (Arrays.asList(677820.0, 697645.0)); // 27695491774
 
         TimeSeries request2006to2007 = ngm.countHistory("request", 2006, 2007);
 
@@ -52,6 +52,8 @@ public class TestNGramMap {
 
         // returns the count of the number of occurrences of fish per year between 1850 and 1933.
         TimeSeries fishCount = ngm.countHistory("fish", 1850, 1933);
+        System.out.println("fishCount.get(1865):"+fishCount.get(1865));
+        System.out.println("fishCount.get(1922):"+fishCount.get(1922));
         assertEquals(136497.0, fishCount.get(1865), 1E-10);
         assertEquals(444924.0, fishCount.get(1922), 1E-10);
 
